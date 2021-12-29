@@ -136,20 +136,34 @@ Instead, you can also configure Odoo to do something similar by itself:
     .. image:: media/alias_domain.png
        :align: center
 
+#.  Click on *Outgoing Mail Servers*
+
+#.  Create a new one.
+
+#.  Fill its *From Filter*.
+
+    .. image:: media/outgoing_server_from_filter.png
+       :align: center
+
+    * Use a domain (such as ``mycompany.example.com``) to keep the original "From"
+      address for mails that come from that domain.
+
+    * Use an address (such as ``outgoing@mycompany.example.com``) to allow only
+      that outgoing address.
+
 #.  In developer mode, go to :menuselection:`Settings --> Technical -->
     Parameters --> System Parameters`.
 
-#.  Add one system parameter from these:
+#.  Add this system parameter:
 
-    * If you want *all* your outgoing messages to use the same "From" address,
-      use the key ``mail.force.smtp.from`` and set that address as value
-      (such as ``outgoing@mycompany.example.com``).
+    * For those outgoing emails that are sent from a server with a domain in its
+      from filter, but do not match that domain, set the email local part in 
+      ``mail.default.from``.
 
-    * If you want to keep the original "From" address for emails that use your
-      same domain, but change it for emails that use a different domain, use
-      the key ``mail.dynamic.smtp.from`` and set as value the email address
-      that should be used in those cases (such as
-      ``outgoing@mycompany.example.com``).
+      For example, if your mail server is configured to allow mails from 
+      ``mycompany.example.com``, and you want that any email that comes from another
+      domain gets sent "From" ``outgoing@mycompany.example.com``, you should set
+      ``mail.default.from`` to ``outgoing``.
 
 .. _discuss/email_servers/inbound_messages:
 
